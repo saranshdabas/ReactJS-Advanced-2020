@@ -1,9 +1,9 @@
 import React from "react";
-import UseState from "./tutorial/1-useState/setup/5-useState-counter";
+import UseEffect from "./tutorial/2-useEffect/setup/1-useEffect-basics";
 function App() {
   return (
     <div className="container">
-      <UseState></UseState>
+      <UseEffect></UseEffect>
     </div>
   );
 }
