@@ -10,10 +10,20 @@ import React, { useState } from "react";
 const ControlledInputs = () => {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
+  const [people, setPeople] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(firstName, email);
+    if (firstName && email) {
+      // ES6 Short-hand for firstname: firstname, email: email
+      // Generating a new id for every new insert
+      const person = { id: new Date().getMilliseconds(), firstName, email };
+      setPeople((people) => {
+        return [...people, person];
+      });
+    } else {
+      console.log("Empty values");
+    }
   };
 
   return (
@@ -42,6 +52,15 @@ const ControlledInputs = () => {
           </div>
           <button type="submit">Add person</button>
         </form>
+        {people.map((person) => {
+          const { id, firstName, email } = person;
+          return (
+            <div key={id} className="item">
+              <h4>{firstName}</h4>
+              <p>{email}</p>
+            </div>
+          );
+        })}
       </article>
     </>
   );
