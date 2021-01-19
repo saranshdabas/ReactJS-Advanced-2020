@@ -14,7 +14,7 @@ const defaultState = {
 
 //Reducer takes 2 arguments, old state and action and returns updated state
 const reducer = (state, action) => {
-  if (action.type === "ITEM_ADD") {
+  if (action.type === "ADD_ITEM") {
     const newPeople = [...state.people, action.payload];
     return {
       ...state,
@@ -30,13 +30,21 @@ const reducer = (state, action) => {
       modalMsg: "Please enter a value",
     };
   }
+  if (action.type === "CLOSE_MODAL") {
+    return { ...state, showModal: false };
+  }
 
   //If none of the action matches throw error
   throw new Error("No action found");
 };
+
 const Index = () => {
   const [name, setName] = useState("");
   const [state, dispatch] = useReducer(reducer, defaultState);
+
+  const closeModal = () => {
+    dispatch({ type: "CLOSE_MODAL" });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,12 +52,14 @@ const Index = () => {
       dispatch({ type: "NO_ITEM" });
     } else {
       const newPerson = { id: new Date().getTime().toString(), name };
-      dispatch({ type: "ITEM_ADD", payload: newPerson });
+      dispatch({ type: "ADD_ITEM", payload: newPerson });
     }
   };
   return (
     <>
-      {state.showModal && <Modal message={state.modalMsg} />}
+      {state.showModal && (
+        <Modal message={state.modalMsg} closeModal={closeModal} />
+      )}
       <form className="form" onSubmit={handleSubmit}>
         <div>
           <input
