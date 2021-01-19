@@ -33,6 +33,17 @@ const reducer = (state, action) => {
   if (action.type === "CLOSE_MODAL") {
     return { ...state, showModal: false };
   }
+  if (action.type === "REMOVE_ITEM") {
+    const newPeople = state.people.filter(
+      (person) => person.id !== action.payload
+    );
+    return {
+      ...state,
+      people: newPeople,
+      showModal: true,
+      modalMsg: "Item removed",
+    };
+  }
 
   //If none of the action matches throw error
   throw new Error("No action found");
@@ -72,8 +83,15 @@ const Index = () => {
       </form>
       {state.people.map((person) => {
         return (
-          <div key={person.id}>
+          <div key={person.id} className="item">
             <h4>{person.name}</h4>
+            <button
+              onClick={() =>
+                dispatch({ type: "REMOVE_ITEM", payload: person.id })
+              }
+            >
+              remove
+            </button>
           </div>
         );
       })}
