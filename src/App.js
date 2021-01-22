@@ -1,5 +1,5 @@
 import React from "react";
-import Setup from "./tutorial/9-custom-hooks/setup/1-fetch-example";
+import Setup from "./tutorial/10-prop-types/setup";
 
 //If the file name is not speficied, index.js will be used as entry point
 function App() {
