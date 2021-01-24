@@ -17,6 +17,7 @@ const ReactRouterSetup = () => {
   //If nothing matches, the error component will be matched eventually
   return (
     <Router>
+      <Navbar />
       <Switch>
         <Route exact path="/">
           <Home />
